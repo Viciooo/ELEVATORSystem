@@ -40,9 +40,15 @@ Przykładowy interfejs może wymagać poprawy i pozostawia wiele pytań otwartyc
 Najprostsze rozwiązanie to FCFS (first-come, first-serve) wg kolejności zgłoszeń - ale być może można to zrobić lepiej?
 
 ## Mój algorytm:
-Zakładam, że ważniejsz jest szybsze wchodzenie do budynku niż wychodzenie z niego.
+Winda najpierw jedzie w jednym kierunku do ostatniego zlecenia w tą stronę np:
+- jeśli zamówisz windę na 3 piętrze do jazdy w dół a ona ma jechać na 5 piętro i potem otrzyma zlecenie, że ktoś z 4 piętra też jedzie w dół jak ty,
+to otworzy mu drzwi a potem zjedzie na trzecie i otworzy tobie
+- wyjątkiem jest sytuacja gdy w czasie wyboru przez tą osobę 4 piętra inna winda będzie dla niego lepsza
 
-#### Case "lista wybranych pięter pusta":
-- dodaje piętro do listy i rusza w stronę tego piętra
-#### Case "winda jedzie w tą samą stronę co piętro z którego ":
-- dodaje piętro do listy i rusza w stronę tego piętra
+Winda jest najlepszą dla użytkownika jeśli jest najbliżej niego.
+Użytkownikowi raz przypisanemu do windy nie zmieniamy już nigdy windy - nie jest wykonywana rekalkulacja najlepszej windy na każdym kroku
+- wady:
+  - gorzej wybierane są najlepsze windy => cały system jest gorszy 
+- zalety:
+  - złożoność obliczeniowa jak i pamięć są oszczędzane otrzymując mnie więcej okej rozwiązanie(przy 16 windach i np. 30 piętrach taki system byłby bardzo wymagający)
+  - użytkownicy w windzie nie dostają epilepsji od zmieniających się podświetleń przycisków windy

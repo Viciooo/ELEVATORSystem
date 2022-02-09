@@ -83,9 +83,8 @@ public class ElevatorSystem {
     }
 
 
-    public void step(int userPosition, DirectionsOfElevator directionOfUser) {
+    public void step() {
         for (Elevator elevator : elevators) {
-            pickup(userPosition, directionOfUser);
             elevator.step();
         }
     }
