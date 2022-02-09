@@ -1,4 +1,4 @@
-# LIFTsystem
+# ELEVATORSystem
 
 ### Zaprojektuj i zaimplementuj system kontroli wind w budynku. Twój system powinien być w stanie obsłużyć do 16 wind i umożliwiać:
 #### Moje założenie:
