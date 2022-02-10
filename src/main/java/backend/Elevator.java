@@ -34,27 +34,31 @@ public class Elevator {
         if (currLevel < finalDestination) {
             currLevel++;
             openDoorsOrNot();
-        }else if(currLevel > finalDestination){
+        } else if (currLevel > finalDestination) {
             currLevel--;
             openDoorsOrNot();
         }
     }
 
     public void addDestination(int lvl) {
-        if(currLevel == finalDestination && !selectedLevels.isEmpty()){
+        if (currLevel == finalDestination && !selectedLevels.isEmpty()) {
             goingUp = false;
         }
-        if(selectedLevels.isEmpty() || currLevel < HelperFunctions.smallestInt(selectedLevels)){
+        if (selectedLevels.isEmpty() || currLevel < HelperFunctions.smallestInt(selectedLevels)) {
             goingUp = true;
-            finalDestination = HelperFunctions.biggestInt(selectedLevels);
+            if(!selectedLevels.isEmpty()){
+                finalDestination = HelperFunctions.biggestInt(selectedLevels);
+            }
         }
-        selectedLevels.add(lvl);
-        if(goingUp){
+        if(!selectedLevels.contains(lvl)){
+            selectedLevels.add(lvl);
+        }
+        if (goingUp) {
             finalDestination = Math.max(finalDestination, lvl);
-        }else{
+        } else {
             finalDestination = Math.min(finalDestination, lvl);
         }
-        System.out.println(lvl + " and the finalDestination is "+ finalDestination + " currLvl is "+ currLevel);
+        System.out.println("Elevator nr " + ID + " is at " + currLevel + " lvl and the finalDestination is " + finalDestination + " lvl, lvl that was added is  " + lvl);
     }
 
     public void openDoorsOrNot() {
@@ -63,19 +67,19 @@ public class Elevator {
             System.out.println("Doors of elevator " + ID + " opened on " + currLevel);
             System.out.println("Please pass the floor user selected or type SKIP:");
             String input = scanner.next();
-            while(true){
-                if(HelperFunctions.isNumeric(input)){
+            while (true) {
+                if (HelperFunctions.isNumeric(input)) {
                     addDestination(Integer.parseInt(input));
                     break;
-                }else if (input.equals("SKIP")){
+                } else if (input.equals("SKIP")) {
                     break;
-                }else{
+                } else {
                     System.out.println("I don't understand you, please retype what you mean");
                     input = scanner.next();
                 }
             }
             selectedLevels.remove(Integer.valueOf(currLevel));
-            System.out.println("selected lvls "+ selectedLevels);
+            System.out.println("selected lvls " + selectedLevels);
         }
     }
 

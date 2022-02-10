@@ -55,6 +55,7 @@ Użytkownikowi raz przypisanemu do windy nie zmieniamy już nigdy windy - nie je
 
 
 ## Do naprawy:
-- poprawić printy, są mylące 
-- wypisywać przystanki wybrane 
-- sprawdzić dobre wybieranie windy
+- może lepszy algorytm:
+  - użytkownik jest dodawany do windy tylko jeśli ma ona ten sam kierunek co jego jazda
+  - spośród jadących w tym samym kierunku wybierana jest ta będąca najbliżej lub winda wolna, która jest najbliżej
+  - jeśli żadna nie jest wolna i nie jedzie w tą samą stronę to po prostu zapytanie wisi w kolejce i czeka, aż jakaś się zwolni
