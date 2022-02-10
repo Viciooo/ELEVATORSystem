@@ -88,4 +88,10 @@ public class ElevatorSystem {
             elevator.step();
         }
     }
+
+    public void printStep(){
+        for(ArrayList<Integer> elevatorStatus: this.status()){
+            System.out.println("Elevator nr "+ elevatorStatus.get(0) + " is at lvl "+elevatorStatus.get(1) + " and its final destination is "+elevatorStatus.get(2));
+        }
+    }
 }

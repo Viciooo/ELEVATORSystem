@@ -15,13 +15,11 @@ public class Engine {
         System.out.println("To skip type - SKIP");
         System.out.println();
 
-//        todo some bug occurred with input
-
-        while(stepPassed != "END"){
+        while(!stepPassed.equals("END")){
             System.out.println("Pass the move:");
             stepPassed = scanner.next();
             if(stepPassed.startsWith("U") || stepPassed.startsWith("D")){
-                if(stepPassed.substring(1).matches("-?(0|[1-9]\\d*)")){
+                if(HelperFunctions.isNumeric(stepPassed.substring(1))){
                     int numberOfFloor = Integer.parseInt(stepPassed.substring(1));
                     if(stepPassed.startsWith("U")){
                         elevatorSystem.pickup(numberOfFloor,DirectionsOfElevator.UP);
@@ -29,9 +27,12 @@ public class Engine {
                         elevatorSystem.pickup(numberOfFloor,DirectionsOfElevator.DOWN);
                     }
                     elevatorSystem.step();
+                    elevatorSystem.printStep();
                 }
             }else if(stepPassed.equals("SKIP")){
                 elevatorSystem.step();
+                elevatorSystem.printStep();
+
             }else{
                 System.out.println("I can not understand you, please retype what you really mean");
             }

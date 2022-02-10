@@ -52,3 +52,9 @@ Użytkownikowi raz przypisanemu do windy nie zmieniamy już nigdy windy - nie je
 - zalety:
   - złożoność obliczeniowa jak i pamięć są oszczędzane otrzymując mnie więcej okej rozwiązanie(przy 16 windach i np. 30 piętrach taki system byłby bardzo wymagający)
   - użytkownicy w windzie nie dostają epilepsji od zmieniających się podświetleń przycisków windy
+
+
+## Do naprawy:
+- poprawić printy, są mylące 
+- wypisywać przystanki wybrane 
+- sprawdzić dobre wybieranie windy
