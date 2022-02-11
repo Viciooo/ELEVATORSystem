@@ -8,7 +8,7 @@ public class Engine {
         Scanner scanner = new Scanner(System.in);
 //        System.out.println("Pass number of elevators: ");
 //        ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
-        ElevatorSystem elevatorSystem = new ElevatorSystem(1);
+        ElevatorSystem elevatorSystem = new ElevatorSystem(2);
         System.out.println();
         String stepPassed = "";
 //        System.out.println("Type HELP for more info");

@@ -43,14 +43,14 @@ public class ElevatorSystem {
         if (userDirection == ElevatorDirection.DOWN) {
 
             for (Elevator elevator : elevators) {
-                if (((elevator.getElevatorDirection() == ElevatorDirection.DOWN || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition)) {
+                if (((elevator.getElevatorDirection() == ElevatorDirection.DOWN || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > Math.abs(elevator.getCurrLevel() - userPosition))) {
                     distanceBetweenUserAndElevator = Math.abs(elevator.getCurrLevel() - userPosition);
                     bestElevator = elevator;
                 }
             }
         } else {
             for (Elevator elevator : elevators) {
-                if ((elevator.getElevatorDirection() == ElevatorDirection.UP || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition) {
+                if ((elevator.getElevatorDirection() == ElevatorDirection.UP || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > Math.abs(elevator.getCurrLevel() - userPosition)) {
                     distanceBetweenUserAndElevator = elevator.getCurrLevel() - userPosition;
                     bestElevator = elevator;
                 }

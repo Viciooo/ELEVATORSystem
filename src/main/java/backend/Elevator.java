@@ -10,6 +10,11 @@ public class Elevator {
     private int finalDestination;
     private ElevatorDirection elevatorDirection;
 
+    //    TODO funkacja szukająca najmniejszej i największej pozycji w tym kierunku co winda, jeśli nie ma to zwraca wartość false i wtedy odpalamy dla przeciwnego kierunku
+//    będzie używana do wyznaczania destination
+
+//    jedyny błąd jaki zachodzi to jak ktoś w windzie da w dół a chce jechać w górę a mamy już kogoś dodanego do windy w dół
+
     public Elevator(int ID) {
         this.ID = ID;
         this.currLevel = 0;
@@ -39,6 +44,10 @@ public class Elevator {
             openDoorsOrNot();
         }else if(elevatorDirection == ElevatorDirection.DOWN){
             finalDestination = HelperFunctions.orderWithSmallestPosition(elevatorOrders);
+            currLevel--;
+            openDoorsOrNot();
+        }else if(elevatorDirection == ElevatorDirection.UP){
+            finalDestination = HelperFunctions.orderWithBiggestPosition(elevatorOrders);
             currLevel--;
             openDoorsOrNot();
         }
@@ -91,11 +100,6 @@ public class Elevator {
             if (elevatorOrders.isEmpty()) {
                 elevatorDirection = ElevatorDirection.NONE;
             }
-            System.out.println("#####################");
-            for (ElevatorOrder elevatorOrder : elevatorOrders) {
-                System.out.println(elevatorOrder.toString());
-            }
-            System.out.println("#####################");
         }
     }
 
@@ -122,11 +126,13 @@ public class Elevator {
     }
 
     public void getInfo() {
+        System.out.println("_____________________________");
         System.out.println("Elevator nr " + ID + " is at " + currLevel);
         System.out.println("It has following orders: ");
         System.out.println(elevatorOrders.toString());
         System.out.println("Final destination is floor nr " + finalDestination);
         System.out.println("Direction: " + elevatorDirection);
+        System.out.println("_____________________________");
     }
 
     public ElevatorDirection getElevatorDirection() {
