@@ -1,6 +1,6 @@
 package backend;
 
-public enum DirectionsOfElevator {
+public enum ElevatorDirection {
     UP,
     DOWN,
     NONE

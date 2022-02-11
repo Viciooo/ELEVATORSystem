@@ -22,9 +22,9 @@ public class Engine {
                 if(HelperFunctions.isNumeric(stepPassed.substring(1))){
                     int numberOfFloor = Integer.parseInt(stepPassed.substring(1));
                     if(stepPassed.startsWith("U")){
-                        elevatorSystem.pickup(numberOfFloor,DirectionsOfElevator.UP);
+                        elevatorSystem.pickup(new OrderForElevator(numberOfFloor, ElevatorDirection.UP));
                     }else{
-                        elevatorSystem.pickup(numberOfFloor,DirectionsOfElevator.DOWN);
+                        elevatorSystem.pickup(new OrderForElevator(numberOfFloor, ElevatorDirection.DOWN));
                     }
                     elevatorSystem.step();
                     elevatorSystem.printStep();
@@ -36,6 +36,7 @@ public class Engine {
             }else{
                 System.out.println("I can not understand you, please retype what you really mean");
             }
+            elevatorSystem.tryPickupForUnassigned();
         }
 
     }

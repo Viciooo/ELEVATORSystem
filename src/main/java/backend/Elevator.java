@@ -8,14 +8,14 @@ public class Elevator {
     private int currLevel;
     private ArrayList<Integer> selectedLevels;
     private int finalDestination;
-    private boolean goingUp;
+    private ElevatorDirection elevatorDirection;
 
     public Elevator(int ID) {
         this.ID = ID;
         this.currLevel = 0;
         this.selectedLevels = new ArrayList<>();
         this.finalDestination = 0;
-        this.goingUp = true;
+        this.elevatorDirection = ElevatorDirection.UP;
     }
 
     public ArrayList<Integer> status() {
@@ -42,10 +42,10 @@ public class Elevator {
 
     public void addDestination(int lvl) {
         if (currLevel == finalDestination && !selectedLevels.isEmpty()) {
-            goingUp = false;
+            elevatorDirection = ElevatorDirection.DOWN;
         }
         if (selectedLevels.isEmpty() || currLevel < HelperFunctions.smallestInt(selectedLevels)) {
-            goingUp = true;
+            elevatorDirection = ElevatorDirection.UP;
             if(!selectedLevels.isEmpty()){
                 finalDestination = HelperFunctions.biggestInt(selectedLevels);
             }
@@ -53,7 +53,7 @@ public class Elevator {
         if(!selectedLevels.contains(lvl)){
             selectedLevels.add(lvl);
         }
-        if (goingUp) {
+        if (elevatorDirection == ElevatorDirection.UP) {
             finalDestination = Math.max(finalDestination, lvl);
         } else {
             finalDestination = Math.min(finalDestination, lvl);
