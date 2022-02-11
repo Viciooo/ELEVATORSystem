@@ -9,12 +9,18 @@ public class Engine {
         ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
         System.out.println();
         String stepPassed = "";
-        System.out.println("To end simulation type - END");
-        System.out.println("To go down from 10'th floor type - d10");
-        System.out.println("In order to go up from floor 0 type - U0");
-        System.out.println("To skip type - SKIP");
-        System.out.println("To skip and show all data about system type - SHOW-ALL");
-        System.out.println();
+        System.out.println("Type HELP for more info");
+        System.out.println("Type START to start simulation");
+        while(!stepPassed.equals("START")){
+            stepPassed = scanner.next();
+            if(stepPassed != "HELP"){
+                help();
+                System.out.println("Type START to start simulation");
+            }
+            else {
+                System.out.println("Such command does not exist, try again");
+            }
+        }
 
         while(!stepPassed.equals("END")){
             System.out.println("Pass the move:");
@@ -44,5 +50,14 @@ public class Engine {
             elevatorSystem.tryPickupForUnassigned();
         }
 
+    }
+
+    private static void help(){
+        System.out.println("To end simulation type - END");
+        System.out.println("To go down from 10'th floor type - D10");
+        System.out.println("In order to go up from floor 0 type - U0");
+        System.out.println("To skip type - SKIP");
+        System.out.println("To skip and show all data about system type - SHOW-ALL");
+        System.out.println();
     }
 }
