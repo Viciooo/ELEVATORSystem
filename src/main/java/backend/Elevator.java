@@ -6,16 +6,16 @@ import java.util.Scanner;
 public class Elevator {
     private final int ID;
     private int currLevel;
-    private ArrayList<Integer> selectedLevels;
+    private ArrayList<ElevatorOrder> elevatorOrders;
     private int finalDestination;
     private ElevatorDirection elevatorDirection;
 
     public Elevator(int ID) {
         this.ID = ID;
         this.currLevel = 0;
-        this.selectedLevels = new ArrayList<>();
+        this.elevatorOrders = new ArrayList<>();
         this.finalDestination = 0;
-        this.elevatorDirection = ElevatorDirection.UP;
+        this.elevatorDirection = ElevatorDirection.NONE;
     }
 
     public ArrayList<Integer> status() {
@@ -31,45 +31,56 @@ public class Elevator {
     }
 
     public void step() {
-        if (currLevel < finalDestination) {
+        if (elevatorDirection == ElevatorDirection.UP) {
             currLevel++;
             openDoorsOrNot();
-        } else if (currLevel > finalDestination) {
+        } else if (elevatorDirection == ElevatorDirection.DOWN) {
             currLevel--;
             openDoorsOrNot();
         }
     }
 
-    public void addDestination(int lvl) {
-        if (currLevel == finalDestination && !selectedLevels.isEmpty()) {
+    public ElevatorDirection getDirection(int userDirection, int currPosition) {
+        if (userDirection < currPosition) {
+            return ElevatorDirection.DOWN;
+        } else if (userDirection > currPosition) {
+            return ElevatorDirection.UP;
+        } else {
+            return ElevatorDirection.NONE;
+        }
+    }
+
+    public void addDestination(ElevatorOrder elevatorOrder) {
+        if (currLevel == finalDestination && !elevatorOrders.isEmpty()) {
             elevatorDirection = ElevatorDirection.DOWN;
         }
-        if (selectedLevels.isEmpty() || currLevel < HelperFunctions.smallestInt(selectedLevels)) {
+        if (!elevatorOrders.isEmpty() || currLevel < HelperFunctions.orderWithSmallestPosition(elevatorOrders)) {
             elevatorDirection = ElevatorDirection.UP;
-            if(!selectedLevels.isEmpty()){
-                finalDestination = HelperFunctions.biggestInt(selectedLevels);
+            if (!elevatorOrders.isEmpty()) {
+                finalDestination = HelperFunctions.orderWithBiggestPosition(elevatorOrders);
             }
         }
-        if(!selectedLevels.contains(lvl)){
-            selectedLevels.add(lvl);
+        if (!checkIfOrderIsInList(elevatorOrder.getUserPosition())) {
+            elevatorOrders.add(elevatorOrder);
+            if (elevatorDirection == ElevatorDirection.UP) {
+                finalDestination = Math.max(finalDestination, elevatorOrder.getUserPosition());
+            } else {
+                finalDestination = Math.min(finalDestination, elevatorOrder.getUserPosition());
+            }
         }
-        if (elevatorDirection == ElevatorDirection.UP) {
-            finalDestination = Math.max(finalDestination, lvl);
-        } else {
-            finalDestination = Math.min(finalDestination, lvl);
-        }
-        System.out.println("Elevator nr " + ID + " is at " + currLevel + " lvl and the finalDestination is " + finalDestination + " lvl, lvl that was added is  " + lvl);
+
+        System.out.println("Elevator nr " + ID + " is at " + currLevel + " lvl and the finalDestination is " + finalDestination + " lvl, lvl that was added is  " + elevatorOrder.getUserPosition());
     }
 
     public void openDoorsOrNot() {
-        if (selectedLevels.contains(currLevel)) {
+        if (((currLevel == HelperFunctions.orderWithBiggestPosition(elevatorOrders)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPosition(elevatorOrders)))) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Doors of elevator " + ID + " opened on " + currLevel);
             System.out.println("Please pass the floor user selected or type SKIP:");
             String input = scanner.next();
             while (true) {
                 if (HelperFunctions.isNumeric(input)) {
-                    addDestination(Integer.parseInt(input));
+                    addDestination(new ElevatorOrder(Integer.parseInt(input), getDirection(Integer.parseInt(input), currLevel)));
                     break;
                 } else if (input.equals("SKIP")) {
                     break;
@@ -78,13 +89,46 @@ public class Elevator {
                     input = scanner.next();
                 }
             }
-            selectedLevels.remove(Integer.valueOf(currLevel));
-            System.out.println("selected lvls " + selectedLevels);
+            removeOrderWithPosition(currLevel);
+            if (elevatorOrders.isEmpty()) {
+                elevatorDirection = ElevatorDirection.NONE;
+            }
+            System.out.println("#####################");
+            for (ElevatorOrder elevatorOrder : elevatorOrders) {
+                System.out.println(elevatorOrder.toString());
+            }
+            System.out.println("#####################");
+        }
+    }
+
+    public void removeOrderWithPosition(int position) {
+        for (ElevatorOrder elevatorOrder : elevatorOrders) {
+            if (elevatorOrder.getUserPosition() == position) {
+                elevatorOrders.remove(elevatorOrder);
+                return;
+            }
         }
     }
 
     public int getFinalDestination() {
         return finalDestination;
+    }
+
+    public boolean checkIfOrderIsInList(int position) {
+        for (ElevatorOrder elevatorOrder : elevatorOrders) {
+            if (elevatorOrder.getUserPosition() == position){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void getInfo(){
+        System.out.println("Elevator nr " + ID + " is at " + currLevel);
+        System.out.println("It has following orders: ");
+        System.out.println(elevatorOrders.toString());
+        System.out.println("Final destination is floor nr "+finalDestination);
+        System.out.println("Direction: "+elevatorDirection);
     }
 }
 

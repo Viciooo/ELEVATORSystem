@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ElevatorSystem {
     private ArrayList<Elevator> elevators;
-    private ArrayList<OrderForElevator> unassignedOrders;
+    private ArrayList<ElevatorOrder> unassignedOrders;
 
     public ElevatorSystem(int numberOfElevators) {
         this.elevators = new ArrayList<>();
@@ -22,16 +22,16 @@ public class ElevatorSystem {
         return tmp;
     }
 
-    public void tryPickupForUnassigned(){
-        for(OrderForElevator orderForElevator: unassignedOrders){
-            pickup(orderForElevator);
+    public void tryPickupForUnassigned() {
+        for (ElevatorOrder elevatorOrder : unassignedOrders) {
+            pickup(elevatorOrder);
         }
     }
 
 
-    public void pickup(OrderForElevator orderForElevator) {
-        ElevatorDirection userDirection = orderForElevator.getUserDirection();
-        int userPosition = orderForElevator.getUserPosition();
+    public void pickup(ElevatorOrder elevatorOrder) {
+        ElevatorDirection userDirection = elevatorOrder.getUserDirection();
+        int userPosition = elevatorOrder.getUserPosition();
         Elevator bestElevator = null;
         int distanceBetweenUserAndElevator = Integer.MAX_VALUE;
 
@@ -57,11 +57,11 @@ public class ElevatorSystem {
             }
         }
         if (bestElevator == null) {
-            if (!unassignedOrders.contains(orderForElevator)) {
-                unassignedOrders.add(orderForElevator);
+            if (!unassignedOrders.contains(elevatorOrder)) {
+                unassignedOrders.add(elevatorOrder);
             }
         } else {
-            bestElevator.addDestination(userPosition);
+            bestElevator.addDestination(elevatorOrder);
         }
     }
 
@@ -77,4 +77,14 @@ public class ElevatorSystem {
             System.out.println("Elevator nr " + elevatorStatus.get(0) + " is at lvl " + elevatorStatus.get(1) + " and its final destination is " + elevatorStatus.get(2));
         }
     }
+
+    public void showAll() {
+        System.out.println("$$$$$$$$$$$$$$$$$$");
+        for (Elevator elevator : elevators) {
+            elevator.getInfo();
+        }
+        System.out.println("$$$$$$$$$$$$$$$$$$");
+    }
+
+
 }
