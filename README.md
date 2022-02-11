@@ -55,5 +55,4 @@ Użytkownikowi raz przypisanemu do windy nie zmieniamy już nigdy windy - nie je
 
 
 ## Do naprawy:
-- przy zmienianiu kierunku windy, jedzie ona dalej do góry
-- trzeba zacząć testy dla wielu wind
+- naprawić przypadek jeśli użytkownik/użytkownicy zaznaczyli, że jadą w górą a dadzą w dół itd

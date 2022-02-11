@@ -43,14 +43,14 @@ public class ElevatorSystem {
         if (userDirection == ElevatorDirection.DOWN) {
 
             for (Elevator elevator : elevators) {
-                if (elevator.getCurrLevel() >= elevator.getFinalDestination() && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition) {
-                    distanceBetweenUserAndElevator = elevator.getCurrLevel() - userPosition;
+                if (((elevator.getElevatorDirection() == ElevatorDirection.DOWN || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition)) {
+                    distanceBetweenUserAndElevator = Math.abs(elevator.getCurrLevel() - userPosition);
                     bestElevator = elevator;
                 }
             }
         } else {
             for (Elevator elevator : elevators) {
-                if (elevator.getCurrLevel() <= elevator.getFinalDestination() && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition) {
+                if ((elevator.getElevatorDirection() == ElevatorDirection.UP || elevator.getElevatorDirection() == ElevatorDirection.NONE) && distanceBetweenUserAndElevator > elevator.getCurrLevel() - userPosition) {
                     distanceBetweenUserAndElevator = elevator.getCurrLevel() - userPosition;
                     bestElevator = elevator;
                 }
@@ -59,6 +59,7 @@ public class ElevatorSystem {
         if (bestElevator == null) {
             if (!unassignedOrders.contains(elevatorOrder)) {
                 unassignedOrders.add(elevatorOrder);
+                System.out.println("i was not assigned " + elevatorOrder.toString());
             }
         } else {
             bestElevator.addDestination(elevatorOrder);

@@ -44,7 +44,7 @@ public class Elevator {
         }
     }
 
-    public ElevatorDirection getDirection(int userDirection, int currPosition) {
+    public ElevatorDirection createDirection(int userDirection, int currPosition) {
         if (userDirection < currPosition) {
             return ElevatorDirection.DOWN;
         } else if (userDirection > currPosition) {
@@ -71,13 +71,14 @@ public class Elevator {
 
     public void openDoorsOrNot() {
         if (((currLevel == HelperFunctions.orderWithBiggestPosition(elevatorOrders)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPosition(elevatorOrders)))) {
+            System.out.println("currLevel "+currLevel+" the other "+HelperFunctions.orderWithBiggestPosition(elevatorOrders));
             Scanner scanner = new Scanner(System.in);
             System.out.println("Doors of elevator " + ID + " opened on " + currLevel);
             System.out.println("Please pass the floor user selected or type SKIP:");
             String input = scanner.next();
             while (true) {
                 if (HelperFunctions.isNumeric(input)) {
-                    addDestination(new ElevatorOrder(Integer.parseInt(input), getDirection(Integer.parseInt(input), currLevel)));
+                    addDestination(new ElevatorOrder(Integer.parseInt(input), createDirection(Integer.parseInt(input), currLevel)));
                     break;
                 } else if (input.equals("SKIP")) {
                     break;
@@ -126,6 +127,10 @@ public class Elevator {
         System.out.println(elevatorOrders.toString());
         System.out.println("Final destination is floor nr " + finalDestination);
         System.out.println("Direction: " + elevatorDirection);
+    }
+
+    public ElevatorDirection getElevatorDirection() {
+        return elevatorDirection;
     }
 }
 
