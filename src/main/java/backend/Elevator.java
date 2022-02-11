@@ -31,10 +31,14 @@ public class Elevator {
     }
 
     public void step() {
-        if (elevatorDirection == ElevatorDirection.UP) {
+        if (currLevel < finalDestination) {
             currLevel++;
             openDoorsOrNot();
-        } else if (elevatorDirection == ElevatorDirection.DOWN) {
+        } else if (currLevel > finalDestination) {
+            currLevel--;
+            openDoorsOrNot();
+        }else if(elevatorDirection == ElevatorDirection.DOWN){
+            finalDestination = HelperFunctions.orderWithSmallestPosition(elevatorOrders);
             currLevel--;
             openDoorsOrNot();
         }
@@ -51,22 +55,15 @@ public class Elevator {
     }
 
     public void addDestination(ElevatorOrder elevatorOrder) {
-        if (currLevel == finalDestination && !elevatorOrders.isEmpty()) {
+        if (currLevel == finalDestination && elevatorOrder.getUserDirection() == ElevatorDirection.DOWN) {
             elevatorDirection = ElevatorDirection.DOWN;
         }
-        if (!elevatorOrders.isEmpty() || currLevel < HelperFunctions.orderWithSmallestPosition(elevatorOrders)) {
+        if (currLevel == finalDestination && elevatorOrder.getUserDirection() == ElevatorDirection.UP) {
             elevatorDirection = ElevatorDirection.UP;
-            if (!elevatorOrders.isEmpty()) {
-                finalDestination = HelperFunctions.orderWithBiggestPosition(elevatorOrders);
-            }
         }
         if (!checkIfOrderIsInList(elevatorOrder.getUserPosition())) {
             elevatorOrders.add(elevatorOrder);
-            if (elevatorDirection == ElevatorDirection.UP) {
-                finalDestination = Math.max(finalDestination, elevatorOrder.getUserPosition());
-            } else {
-                finalDestination = Math.min(finalDestination, elevatorOrder.getUserPosition());
-            }
+            finalDestination = Math.max(finalDestination,elevatorOrder.getUserPosition());
         }
 
         System.out.println("Elevator nr " + ID + " is at " + currLevel + " lvl and the finalDestination is " + finalDestination + " lvl, lvl that was added is  " + elevatorOrder.getUserPosition());
@@ -116,19 +113,19 @@ public class Elevator {
 
     public boolean checkIfOrderIsInList(int position) {
         for (ElevatorOrder elevatorOrder : elevatorOrders) {
-            if (elevatorOrder.getUserPosition() == position){
+            if (elevatorOrder.getUserPosition() == position) {
                 return true;
             }
         }
         return false;
     }
 
-    public void getInfo(){
+    public void getInfo() {
         System.out.println("Elevator nr " + ID + " is at " + currLevel);
         System.out.println("It has following orders: ");
         System.out.println(elevatorOrders.toString());
-        System.out.println("Final destination is floor nr "+finalDestination);
-        System.out.println("Direction: "+elevatorDirection);
+        System.out.println("Final destination is floor nr " + finalDestination);
+        System.out.println("Direction: " + elevatorDirection);
     }
 }
 
