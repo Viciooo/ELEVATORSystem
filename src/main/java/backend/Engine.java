@@ -8,18 +8,16 @@ public class Engine {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pass number of elevators: ");
         ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
-//        ElevatorSystem elevatorSystem = new ElevatorSystem(1);
         System.out.println();
         String stepPassed = "";
         System.out.println("Type HELP for more info");
         System.out.println("Type START to start simulation");
-        while(!stepPassed.equals("START")){
+        while (!stepPassed.equals("START")) {
             stepPassed = scanner.next();
-            if(Objects.equals(stepPassed, "HELP")){
+            if (Objects.equals(stepPassed, "HELP")) {
                 help();
                 System.out.println("Type START to start simulation");
-            }
-            else if(!Objects.equals(stepPassed, "START")){
+            } else if (!Objects.equals(stepPassed, "START")) {
                 System.out.println("Such command does not exist, try again");
             }
         }
@@ -47,7 +45,7 @@ public class Engine {
                 elevatorSystem.step();
                 elevatorSystem.printStep();
             } else {
-                System.out.println("I can not understand you, please retype what you really mean");
+                System.out.println("Command does not exist, please retype what You meant");
             }
             elevatorSystem.tryPickupForUnassigned();
         }

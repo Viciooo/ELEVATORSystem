@@ -37,23 +37,23 @@ public class Elevator {
         } else if (currLevel > finalDestination) {
             currLevel--;
             openDoorsOrNot();
-        }else if(elevatorDirection == ElevatorDirection.DOWN){
-            finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection);
-            if(finalDestination == Integer.MAX_VALUE && !elevatorOrders.isEmpty()){
+        } else if (elevatorDirection == ElevatorDirection.DOWN) {
+            finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders, elevatorDirection);
+            if (finalDestination == Integer.MAX_VALUE && !elevatorOrders.isEmpty()) {
                 elevatorDirection = ElevatorDirection.UP;
-                finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection);
+                finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders, elevatorDirection);
                 currLevel++;
-            }else{
+            } else {
                 currLevel--;
             }
             openDoorsOrNot();
-        }else if(elevatorDirection == ElevatorDirection.UP){
-            finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection);
-            if(finalDestination == Integer.MIN_VALUE && !elevatorOrders.isEmpty()){
+        } else if (elevatorDirection == ElevatorDirection.UP) {
+            finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders, elevatorDirection);
+            if (finalDestination == Integer.MIN_VALUE && !elevatorOrders.isEmpty()) {
                 elevatorDirection = ElevatorDirection.DOWN;
-                finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection);
+                finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders, elevatorDirection);
                 currLevel--;
-            }else{
+            } else {
                 currLevel++;
             }
             openDoorsOrNot();
@@ -79,15 +79,12 @@ public class Elevator {
         }
         if (!checkIfOrderIsInList(elevatorOrder.getUserPosition())) {
             elevatorOrders.add(elevatorOrder);
-            finalDestination = Math.max(finalDestination,elevatorOrder.getUserPosition());
+            finalDestination = Math.max(finalDestination, elevatorOrder.getUserPosition());
         }
-
-        System.out.println("Elevator nr " + ID + " is at " + currLevel + " lvl and the finalDestination is " + finalDestination + " lvl, lvl that was added is  " + elevatorOrder.getUserPosition());
     }
 
     public void openDoorsOrNot() {
-        if (((currLevel == HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection)))) {
-            System.out.println("currLevel "+currLevel+" the other "+HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection));
+        if (((currLevel == HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders, elevatorDirection)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders, elevatorDirection)))) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Doors of elevator " + ID + " opened on " + currLevel);
             System.out.println("Please pass the floor user selected or type SKIP:");

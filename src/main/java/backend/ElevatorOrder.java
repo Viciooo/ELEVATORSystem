@@ -18,6 +18,6 @@ public class ElevatorOrder {
     }
 
     public String toString() {
-        return "[ position: " + userPosition + ", direction: " + userDirection + " ]";
+        return "[ floor nr: " + userPosition + ", direction: " + userDirection + " ]";
     }
 }

@@ -59,7 +59,6 @@ public class ElevatorSystem {
         if (bestElevator == null) {
             if (!unassignedOrders.contains(elevatorOrder)) {
                 unassignedOrders.add(elevatorOrder);
-                System.out.println("i was not assigned " + elevatorOrder.toString());
             }
         } else {
             bestElevator.addDestination(elevatorOrder);
@@ -80,11 +79,12 @@ public class ElevatorSystem {
     }
 
     public void showAll() {
-        System.out.println("$$$$$$$$$$$$$$$$$$");
+        System.out.println("------------------------");
         for (Elevator elevator : elevators) {
             elevator.getInfo();
         }
-        System.out.println("$$$$$$$$$$$$$$$$$$");
+        System.out.println("------------------------");
+
     }
 
 
