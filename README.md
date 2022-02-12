@@ -107,9 +107,9 @@ algorytmu, ja przepisałbym go na C albo Asemblera (ale, aż tak odważny jeszcz
 projekt jako ćwiczenie umiejętności pisania w Javie i przypomnienie jak się pisze algorytmy, bo nie robiłem tego od pół
 roku :)
 
-### Plik .exe do testowania
+### Plik .jar do testowania
 
-Jeśli nie boisz się to stworzyłem dla ciebie plik .exe do testowania. Używałem intellij'a do stworzenia pliku .jar i oprogramowania lunch4j do stworzenia pliku .exe
+W folderze out/artifacts/E
 Oczywiście możesz też testować w swoim ulubionym IDE ;)
 
 ### Masz jakieś inne pytania?
