@@ -1,5 +1,3 @@
-package backend;
-
 public class ElevatorOrder {
     private final ElevatorDirection userDirection;
     private final int userPosition;
