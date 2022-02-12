@@ -43,6 +43,17 @@ Najprostsze rozwiązanie to FCFS (first-come, first-serve) wg kolejności zgłos
 
 ## Mój algorytm:
 
+### Natura algorytmu
+Algorytm jest działa w sposób zachłanny, maksymalizuje ilość zadań, które może wykonać jedna winda. Nie zawsze będą to najlepsze rozwiązania, zwłaszcza na początku, gdy windy są na tej samej pozycji.
+Wtedy lepsze byłoby rozdzielenie zadań na poszczególne windy. Poprawa nastąpi, gdy windy rozłożą się po różnych piętrach.
+
+### Dlaczego nie FCFS ?
+Prowadzi on do zbędnego w moim mniemaniu zajmowania wind. W dużym budynku taki system przy normalnej ilości wind podpiętych pod jedną płytkę sterującą (zwykle 2-4 czasem 6)
+windy za mało robiłyby na pojedynczym przejeździe.
+
+Moim zdaniem idealnym zastosowaniem tego systemu byłyby windy towarowe zwłaszcza te przewożące bardzo ciężkie ładunki.
+Wtedy każdy przejazd jest bardziej kosztowny i minimalizowanie ich liczby może okazać się przydatne.
+
 ### Która winda dostanie zlecenie odbioru (pickup) ?
 
 Winda, która jest wolna lub jej kierunek jazdy jest zgodny ze zleceniem i jest najbliżej
