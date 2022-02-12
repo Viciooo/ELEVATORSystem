@@ -6,23 +6,23 @@ import java.util.Scanner;
 public class Engine {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        System.out.println("Pass number of elevators: ");
-//        ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
-        ElevatorSystem elevatorSystem = new ElevatorSystem(2);
+        System.out.println("Pass number of elevators: ");
+        ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
+//        ElevatorSystem elevatorSystem = new ElevatorSystem(1);
         System.out.println();
         String stepPassed = "";
-//        System.out.println("Type HELP for more info");
-//        System.out.println("Type START to start simulation");
-//        while(!stepPassed.equals("START")){
-//            stepPassed = scanner.next();
-//            if(Objects.equals(stepPassed, "HELP")){
-//                help();
-//                System.out.println("Type START to start simulation");
-//            }
-//            else if(!Objects.equals(stepPassed, "START")){
-//                System.out.println("Such command does not exist, try again");
-//            }
-//        }
+        System.out.println("Type HELP for more info");
+        System.out.println("Type START to start simulation");
+        while(!stepPassed.equals("START")){
+            stepPassed = scanner.next();
+            if(Objects.equals(stepPassed, "HELP")){
+                help();
+                System.out.println("Type START to start simulation");
+            }
+            else if(!Objects.equals(stepPassed, "START")){
+                System.out.println("Such command does not exist, try again");
+            }
+        }
 
         while (!stepPassed.equals("END")) {
             System.out.println("Pass the move:");

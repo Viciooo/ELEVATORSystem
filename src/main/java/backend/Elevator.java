@@ -10,11 +10,6 @@ public class Elevator {
     private int finalDestination;
     private ElevatorDirection elevatorDirection;
 
-    //    TODO funkacja szukająca najmniejszej i największej pozycji w tym kierunku co winda, jeśli nie ma to zwraca wartość false i wtedy odpalamy dla przeciwnego kierunku
-//    będzie używana do wyznaczania destination
-
-//    jedyny błąd jaki zachodzi to jak ktoś w windzie da w dół a chce jechać w górę a mamy już kogoś dodanego do windy w dół
-
     public Elevator(int ID) {
         this.ID = ID;
         this.currLevel = 0;
@@ -43,12 +38,24 @@ public class Elevator {
             currLevel--;
             openDoorsOrNot();
         }else if(elevatorDirection == ElevatorDirection.DOWN){
-            finalDestination = HelperFunctions.orderWithSmallestPosition(elevatorOrders);
-            currLevel--;
+            finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection);
+            if(finalDestination == Integer.MAX_VALUE && !elevatorOrders.isEmpty()){
+                elevatorDirection = ElevatorDirection.UP;
+                finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection);
+                currLevel++;
+            }else{
+                currLevel--;
+            }
             openDoorsOrNot();
         }else if(elevatorDirection == ElevatorDirection.UP){
-            finalDestination = HelperFunctions.orderWithBiggestPosition(elevatorOrders);
-            currLevel--;
+            finalDestination = HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection);
+            if(finalDestination == Integer.MIN_VALUE && !elevatorOrders.isEmpty()){
+                elevatorDirection = ElevatorDirection.DOWN;
+                finalDestination = HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection);
+                currLevel--;
+            }else{
+                currLevel++;
+            }
             openDoorsOrNot();
         }
     }
@@ -79,8 +86,8 @@ public class Elevator {
     }
 
     public void openDoorsOrNot() {
-        if (((currLevel == HelperFunctions.orderWithBiggestPosition(elevatorOrders)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPosition(elevatorOrders)))) {
-            System.out.println("currLevel "+currLevel+" the other "+HelperFunctions.orderWithBiggestPosition(elevatorOrders));
+        if (((currLevel == HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection)) && elevatorDirection == ElevatorDirection.DOWN) || (elevatorDirection == ElevatorDirection.UP && (currLevel == HelperFunctions.orderWithSmallestPositionInThisDirection(elevatorOrders,elevatorDirection)))) {
+            System.out.println("currLevel "+currLevel+" the other "+HelperFunctions.orderWithBiggestPositionInThisDirection(elevatorOrders,elevatorDirection));
             Scanner scanner = new Scanner(System.in);
             System.out.println("Doors of elevator " + ID + " opened on " + currLevel);
             System.out.println("Please pass the floor user selected or type SKIP:");
