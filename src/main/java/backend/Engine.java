@@ -6,14 +6,25 @@ import java.util.Scanner;
 public class Engine {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Pass number of elevators: ");
-        ElevatorSystem elevatorSystem = new ElevatorSystem(scanner.nextInt());
+        String input;
+        while(true){
+            System.out.println("Pass number of elevators: ");
+            input = scanner.next();
+            if(HelperFunctions.isNumeric(input) && Integer.parseInt(input) > 0){
+                break;
+            }else{
+                System.out.println("Passed number of elevators is either not correct or is not really a number");
+            }
+        }
+        ElevatorSystem elevatorSystem = new ElevatorSystem(Integer.parseInt(input));
+
+
         System.out.println();
         String stepPassed = "";
         System.out.println("Type HELP for more info");
         System.out.println("Type START to start simulation");
         while (!stepPassed.equals("START")) {
-            stepPassed = scanner.next();
+            stepPassed = scanner.next().toUpperCase();
             if (Objects.equals(stepPassed, "HELP")) {
                 help();
                 System.out.println("Type START to start simulation");
@@ -24,7 +35,7 @@ public class Engine {
 
         while (!stepPassed.equals("END")) {
             System.out.println("Pass the move:");
-            stepPassed = scanner.next();
+            stepPassed = scanner.next().toUpperCase();
             if (stepPassed.startsWith("U") || stepPassed.startsWith("D")) {
                 if (HelperFunctions.isNumeric(stepPassed.substring(1))) {
                     int numberOfFloor = Integer.parseInt(stepPassed.substring(1));
