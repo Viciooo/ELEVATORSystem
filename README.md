@@ -118,7 +118,6 @@ Jeśli tak, to napisz na gicie Issue lub napisz do mnie na maila. Z chęcią odp
 
 #################################
 
-#### Stworzone w całości samemu
 Piotr Witek @Viciooo
                                 
 #################################
